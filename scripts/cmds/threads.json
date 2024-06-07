@@ -1,0 +1,27 @@
+{
+  "123456789": {
+    "threadID": "123456789",
+    "threadName": "Group 1",
+    "banned": {
+      "status": true,
+      "date": "2023-06-28T12:30:00Z",
+      "reason": "Violated bot rules"
+    }
+  },
+  "456789123": {
+    "threadID": "456789123",
+    "threadName": "Group 3",
+    "banned": {
+      "status": true,
+      "date": "2023-06-30T08:45:00Z",
+      "reason": "Spamming"
+    }
+  },
+  "987654321": {
+    "threadID": "987654321",
+    "threadName": "Group 2",
+    "banned": {
+      "status": false
+    }
+  }
+}
