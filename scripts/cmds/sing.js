@@ -147,7 +147,7 @@ async function handle({ type, infoVideo, message, getLang }) {
 
   if (type == "audio") {
     const MAX_SIZE = 27262976; // 26MB (max size of audio that can be sent on fb)
-    const msgSend = message.reply(getLang("downloading", getLang("audio"), title));
+    const msgSend = console.log(getLang("downloading", getLang("audio"), title));
     const { formats } = await ytdl.getInfo(videoId);
     const getFormat = formats
       .filter(f => f.hasAudio && !f.hasVideo)
@@ -189,7 +189,6 @@ async function handle({ type, infoVideo, message, getLang }) {
         if (err)
           return message.reply(getLang("error", err.message));
         fs.unlinkSync(savePath);
-        message.unsend((await msgSend).messageID);
       });
     });
   }
