@@ -239,6 +239,8 @@ async function getVideoInfo(id) {
     }
   });
 
+	const owner = json2.contents.twoColumnWatchNextResults.results.results.contents.find(x => x.videoSecondaryInfoRenderer)?.videoSecondaryInfoRenderer?.owner;
+
   const json = JSON.parse(html.match(/var ytInitialPlayerResponse = (.*?});/)[1]);
   const json2 = JSON.parse(html.match(/var ytInitialData = (.*?});/)[1]);
   const { title, lengthSeconds, viewCount, videoId, thumbnail, author } = json.videoDetails;
