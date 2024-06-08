@@ -69,7 +69,7 @@ async function downloadAudioFromYoutube(title, message) {
 // Export the module configuration and onStart function
 module.exports = {
     config: {
-        name: "sing",
+        name: "sing2",
         version: "1.0",
         author: "JISHAN76",
         countDown: 10,
