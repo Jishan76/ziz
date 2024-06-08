@@ -54,13 +54,17 @@ module.exports = {
       noAudio: "⭕ Rất tiếc, không tìm thấy audio nào có dung lượng nhỏ hơn 26MB"
     },
     en: {
-      error: "⚠️ An unexpected issue occurred: %1",
-      noResult: "🔍 No matches found for the keyword %1",
-      choose: "✉️ Reply to this message with a number to select, or any other content to cancel",
-      audio: "🎵 audio",
-      downloading: "📥 Starting download of audio \"%1\"",
-      downloading2: "📥 Downloading audio \"%1\"\n📈 Speed: %2MB/s\n📊 Downloaded: %3/%4MB (%5%)\n⏳ Estimated time remaining: %6 seconds",
-      noAudio: "⚠️ No audio found under 26MB"
+      error: "⚠️ An error occurred: %1",
+      noResult: "🔍 No search results match the keyword %1",
+      choose: "%1 Respond to the message with a number to choose or any content to cancel",
+      video: "video",
+      audio: "audio",
+      downloading: "📥 Downloading %1 \"%2\"",
+      downloading2: "📥 Downloading %1 \"%2\"\n⚡ Speed: %3MB/s\n📊 Downloaded: %4/%5MB (%6%)\n⏳ Estimated time remaining: %7 seconds",
+      noVideo: "🔍 Sorry, no video was found with a size less than 83MB",
+      noAudio: "🔍 Sorry, no audio was found with a size less than 26MB",
+      info: "ℹ️ Title: %1\n📺 Channel: %2\n👥 Subscriber: %3\n⏲️ Video duration: %4\n👁️ View count: %5\n👍 Like count: %6\n📅 Upload date: %7\n🆔 ID: %8\n🔗 Link: %9",
+      listChapter: "\n📚 List chapter: %1\n"
     }
   },
 
