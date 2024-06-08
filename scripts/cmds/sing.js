@@ -28,7 +28,7 @@ module.exports = {
   config: {
     name: "sing",
     aliases: ["play", "music"],
-    version: "1.14",
+    version: "2.0",
     author: "JISHAN76",
     countDown: 5,
     role: 0,
