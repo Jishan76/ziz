@@ -39,13 +39,7 @@ module.exports = {
         + "\n    {pn} -v Fallen Kingdom"
         + "\n    {pn} -a Fallen Kingdom"
         + "\n    {pn} -i Fallen Kingdom",
-      en: "   {pn} [video|-v] [<video name>|<video link>]: use to download video from youtube."
-        + "\n   {pn} [audio|-a] [<video name>|<video link>]: use to download audio from youtube"
-        + "\n   {pn} [info|-i] [<video name>|<video link>]: use to view video information from youtube"
-        + "\n   Example:"
-        + "\n    {pn} -v Fallen Kingdom"
-        + "\n    {pn} -a Fallen Kingdom"
-        + "\n    {pn} -i Fallen Kingdom"
+      en: " {pn} [video] [<video name>|<video link>]: use to download video from YouTube."
     }
   },
 
@@ -64,17 +58,17 @@ module.exports = {
       listChapter: "\n📖 Danh sách phân đoạn: %1\n"
     },
     en: {
-      error: "❌ An error occurred: %1",
-      noResult: "⭕ No search results match the keyword %1",
-      choose: "%1Reply to the message with a number to choose or any content to cancel",
-      video: "video",
-      audio: "audio",
-      downloading: "⬇️ Downloading %1 \"%2\"",
-      downloading2: "⬇️ Downloading %1 \"%2\"\n🔃 Speed: %3MB/s\n⏸️ Downloaded: %4/%5MB (%6%)\n⏳ Estimated time remaining: %7 seconds",
-      noVideo: "⭕ Sorry, no video was found with a size less than 83MB",
-      noAudio: "⭕ Sorry, no audio was found with a size less than 26MB",
-      info: "💠 Title: %1\n🏪 Channel: %2\n👨‍👩‍👧‍👦 Subscriber: %3\n⏱ Video duration: %4\n👀 View count: %5\n👍 Like count: %6\n🆙 Upload date: %7\n🔠 ID: %8\n🔗 Link: %9",
-      listChapter: "\n📖 List chapter: %1\n"
+      error: "⚠️ An unexpected issue occurred: %1",
+      noResult: "🔍 No matches found for the keyword %1",
+      choose: "✉️ Reply to this message with a number to select, or any other content to cancel",
+      video: "🎥 video",
+      audio: "🎵 audio",
+      downloading: "📥 Starting download of %1 \"%2\"",
+      downloading2: "📥 Downloading %1 \"%2\"\n📈 Speed: %3MB/s\n📊 Downloaded: %4/%5MB (%6%)\n⏳ Estimated time remaining: %7 seconds",
+      noVideo: "⚠️ No video found under 83MB",
+      noAudio: "⚠️ No audio found under 26MB",
+      info: "ℹ️ Title: %1\n📺 Channel: %2\n👥 Subscribers: %3\n⏳ Duration: %4\n👁️ Views: %5\n👍 Likes: %6\n📅 Uploaded on: %7\n🆔 ID: %8\n🔗 Link: %9",
+      listChapter: "\n📚 Chapter list: %1\n"
     }
   },
 
