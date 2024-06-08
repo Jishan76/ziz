@@ -230,7 +230,7 @@ async function search(keyWord) {
 }
 
 async function getVideoInfo(id) {
-  id = id.replace(/(>|<)/gi, '').split(/(vi\/|v=|\/v\/|youtu\.be\/|\/embed\/|\/shorts\/))/);
+  id = id.replace(/(>|<)/gi, '').split(/(vi\/|v=|\/v\/|youtu\.be\/|\/embed\/|\/shorts\/)/);
   id = id[2] !== undefined ? id[2].split(/[^0-9a-z_\-]/i)[0] : id[0];
 
   const { data: html } = await axios.get(`https://youtu.be/${id}?hl=en`, {
