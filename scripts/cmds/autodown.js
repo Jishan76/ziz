@@ -1,4 +1,4 @@
-const axios = require('axios');
+ const axios = require('axios');
 const fs = require('fs');
 const path = require('path');
 const https = require('https');
@@ -22,7 +22,7 @@ module.exports = {
       const text = event.body.trim();
       
       try {
-        const urlRegex = /(https?:\/\/(?:www\.)?(?:facebook\.com|fb\.com)\/[^\s]+)/g;
+        const urlRegex = /(https?:\/\/(?:www\.)?(?:facebook\.com|fb\.com|fb\.watch)\/[^\s]+)/g;
         const urlMatches = text.match(urlRegex);
         
         if (urlMatches && urlMatches.length > 0) {
