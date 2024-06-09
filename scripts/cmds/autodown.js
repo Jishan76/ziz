@@ -83,7 +83,7 @@ module.exports = {
       } catch (error) {
         console.error("Error processing the URL:", error);
         // Handle error silently or notify the user about the error
-        await message.reply("❌ An error occurred while processing the video URL.");
+        
       }
     }
   },
