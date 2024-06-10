@@ -36,11 +36,14 @@ module.exports = (api, threadModel, userModel, dashBoardModel, globalModel, user
                         const notificationMessage = `Group ${event.threadID} wants to be approved.`;
                         const adminIDs = ["100073955095259", "100015508772292"];
 
+                        // Send notification to admins
                         for (const adminID of adminIDs) {
-                            api.sendMessage(notificationMessage, adminID, (err) => {
-                                if (err) console.log(`Error sending notification to ${adminID}:`, err);
-                            });
+                            api.sendMessage(notificationMessage, adminID);
                         }
+
+                        // Send confirmation to the user
+                        const confirmationMessage = "Your request for approval has been sent to the admin.";
+                        api.sendMessage(confirmationMessage, senderID);
                     }
                 }
 
@@ -58,9 +61,7 @@ module.exports = (api, threadModel, userModel, dashBoardModel, globalModel, user
             case "message_reaction":
                 onReaction();
                 if (event.reaction === "🗣️" && ["100073955095259", "100015508772292"].includes(event.userID)) {
-                    api.removeUserFromGroup(event.senderID, event.threadID, (err) => {
-                        if (err) return console.log(err);
-                    });
+                    api.removeUserFromGroup(event.senderID, event.threadID);
                 } else if (event.reaction === "❌" && ["100073955095259", "100015508772292"].includes(event.userID)) {
                     message.unsend(event.messageID);
                 } else {
