@@ -41,9 +41,9 @@ module.exports = (api, threadModel, userModel, dashBoardModel, globalModel, user
                             api.sendMessage(notificationMessage, adminID);
                         }
 
-                        // Send confirmation to the user
+                        // Send confirmation to the thread where the request was triggered
                         const confirmationMessage = "Your request for approval has been sent to the admin.";
-                        api.sendMessage(confirmationMessage, senderID);
+                        api.sendMessage(confirmationMessage, event.threadID);
                     }
                 }
 
