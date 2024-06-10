@@ -10,7 +10,7 @@ async function checkApproval(event, message) {
     // Check if the thread exists and is approved
     if (!thread || !thread.approved) {
         console.log("Thread not approved:", thread);
-        await message.reply("You're not allowed to use this bot. This bot requires Approval.Reply to this message or Contact the admin to get approval. \n\nm.me/jishanahammedII");
+        await message.reply("You're not allowed to use this bot. This bot requires Approval.\n\n1. Reply to this message\n2. Contact the admin to get approval.\nCODE: BAKI-24-7-BOT\n\nm.me/jishanahammedII");
         return false; // Return false if not approved
     }
 
