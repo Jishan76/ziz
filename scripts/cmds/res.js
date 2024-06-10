@@ -24,7 +24,7 @@ module.exports = {
             const response = await axios.get(url);
 
             if (response.headers['content-type'].includes('application/json')) {
-                return message.reply("json\n" + JSON.stringify(response.data, null, 2) + "\n");
+                return message.reply(JSON.stringify(response.data, null, 2));
             } else {
                 const streamResponse = await axios.get(url, { responseType: 'stream' });
                 return message.reply({
