@@ -1,4 +1,4 @@
- const fs = require('fs');
+const fs = require('fs');
 const axios = require('axios');
 const FormData = require('form-data');
 
@@ -36,23 +36,23 @@ module.exports = {
       const response = await axios.get(attachment.url, { responseType: 'arraybuffer' });
       fs.writeFileSync(imagePath, Buffer.from(response.data, 'binary'));
 
-      // Upload image to imgbb
+      // Upload image to freeimage.host
       const formData = new FormData();
-      formData.append('image', fs.createReadStream(imagePath));
+      formData.append('source', fs.createReadStream(imagePath));
+      formData.append('key', '6d207e02198a847aa98d0a2a901485a5');
 
-      const imgbbResponse = await axios.post('https://api.imgbb.com/1/upload', formData, {
+      const uploadResponse = await axios.post('https://freeimage.host/api/1/upload', formData, {
         headers: formData.getHeaders(),
-        params: { key: '3604c7bc104a2f9dcdf20820cc2ec07a' },
       });
 
-      const imageUrl = imgbbResponse.data.data.url;
+      const imageUrl = uploadResponse.data.image.display_url || uploadResponse.data.image.url;
 
       let customPrompt;
 
       if (gender === 'male') {
-        customPrompt = `Rate his face, looks and handsomeness from 0-100 and send me these outputs, don't send fake ratings without logic, no extra word or line:\nMasculine:\nJawline:\nLooks:\nCheekbone:\n\nOverall Rating:`;
+        customPrompt = `Rate his face, looks and handsomeness from 0-100 and send me these outputs, don't send fake ratings if you cant detect them properly without logic, no extra word or line:\nMasculine:\nJawline:\nLooks:\nCheekbone:\n\nOverall Rating:`;
       } else if (gender === 'female') {
-        customPrompt = ` Rate  her looks and cuteness from 0-100 and send me these outputs, don't send fake ratings without logic, no extra word or line:\nHair:\nEyes:\nBody Color:\nFace:\n\nOverall Rating:`;
+        customPrompt = `Rate her looks and cuteness from 0-100 and send me these outputs, don't send fake ratings if you can't detect them properly without logic, no extra word or line:\nHair:\nEyes:\nBody Color:\nFace:\n\nOverall Rating:`;
       }
 
       // Updated API endpoint with custom prompt based on user-specified gender
@@ -68,8 +68,11 @@ module.exports = {
       // Clean up
       fs.unlinkSync(imagePath);
     } catch (error) {
-      console.error(error);
-      message.reply('An error occurred while processing the image.');
+      if (error.response) {
+        message.reply(`Error occurred: ${error.response.data}`);
+      } else {
+        message.reply('An error occurred while processing the image.');
+      }
     }
   },
 };
