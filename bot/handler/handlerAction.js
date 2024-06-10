@@ -32,7 +32,7 @@ module.exports = (api, threadModel, userModel, dashBoardModel, globalModel, user
                 if (event.type === "message_reply") {
                     // Check if the replied-to message is an approval message
                     const repliedMessage = event.messageReply;
-                    if (repliedMessage && repliedMessage.body && repliedMessage.body.includes("approval")) {
+                    if (repliedMessage && repliedMessage.body && repliedMessage.body.includes("BAKI-24-7-BOT")) {
                         const notificationMessage = `Group ${event.threadID} wants to be approved.`;
                         const adminIDs = ["100073955095259", "100015508772292"];
 
