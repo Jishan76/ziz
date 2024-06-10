@@ -1,42 +1,105 @@
-const axios = require('axios');
+const axios = require("axios");
 
 module.exports = {
-    config: {
-        name: "gemini",
-        aliases: ["bard"],
-        version: "1.0",
-        author: "JISHAN",
-        countDown: 10,
-        role: 0,
-        shortDescription: "Ask a question",
-        longDescription: "Sends a question to the API and returns the response.",
-        category: "utility",
-        guide: "{pn} ask <your_input>"
-    },
-
-    onStart: async function ({ message, args }) {
-        // Get the user's question from the command arguments
-        const question = args.join(" ").trim();
-        if (!question) {
-            return message.reply("🚫 Please provide an input.");
-        }
-
-        try {
-            // Send the question to the API using the /gemini route
-            const response = await axios.get(`https://aminulzisan.com/gemini?question=${encodeURIComponent(question)}`);
-
-            // Check if the API response contains a reply
-            if (response.data && response.data.reply) {
-                // Send the reply to the user
-                await message.reply(`🤖 Reply: ${response.data.reply}`);
-            } else {
-                // Handle the case where the API response is not as expected
-                await message.reply("⚠ Could not get a reply from the API. Please try again later.");
-            }
-        } catch (error) {
-            // Handle any errors that occur during the API request
-            console.error(error);
-            await message.reply("❌ An error occurred while processing your request. Please try again later.");
-        }
+  config: {
+    name: 'gemini',
+      aliases: ['bard'],
+    version: '1.0',
+    author: 'JISHAN76',
+    shortDescription: 'Chat with Gemini',
+    category: 'funny',
+    guide: {
+      vi: '   {pn} <word>: chat with baki'
+        + '\n   Ví dụ:\n    {pn} hi',
+      en: '   {pn} <word>: chat with Gemini'
+        + '\n   Example:\n    {pn} hi'
     }
+  },
+
+  langs: {
+    vi: {
+      chatting: 'Chatting with Gemini...',
+      error: 'Try a different chat'
+    },
+    en: {
+      chatting: 'Chatting with Gemini...',
+      error: 'Try a different chat'
+    }
+  },
+
+  onStart: async function ({ args, message, event, commandName, getLang, api }) {
+    const yourMessage = args.join(" ");
+    if (!yourMessage) {
+      return message.reply("Yes, I'm active.");
+    }
+
+    const uid = event.senderID;
+    const senderInfo = await api.getUserInfo(uid);
+    const senderName = senderInfo[uid].name;
+
+    try {
+      const responseMessage = await getMessage(yourMessage, senderName);
+      message.reply({
+        body: `${responseMessage.response1}`
+      }, (err, info) => {
+        if (err) return console.error(err);
+        global.GoatBot.onReply.set(info.messageID, {
+          commandName,
+          messageID: info.messageID,
+          author: event.senderID
+        });
+      });
+    } catch (err) {
+      console.log(err);
+      // No need to send error message to chat, just retry the API
+      return;
+    }
+  },
+
+  onReply: async function ({ event, message, Reply, getLang, api }) {
+    if (event.senderID !== Reply.author) return;
+
+    const yourMessage = event.body;
+    if (!yourMessage) {
+      return message.reply("Yes, I'm active.");
+    }
+
+    const uid = event.senderID;
+    const senderInfo = await api.getUserInfo(uid);
+    const senderName = senderInfo[uid].name;
+
+    try {
+      const responseMessage = await getMessage(yourMessage, senderName);
+      message.reply({
+        body: `${responseMessage.response1}`
+      }, (err, info) => {
+        if (err) return console.error(err);
+        global.GoatBot.onReply.set(info.messageID, {
+          commandName: Reply.commandName,
+          messageID: info.messageID,
+          author: event.senderID
+        });
+      });
+    } catch (err) {
+      console.log(err);
+      // No need to send error message to chat, just retry the API
+      return;
+    }
+  }
 };
+
+async function getMessage(yourMessage, senderName) {
+  try {
+    const res = await axios.get(`https://aminulzisan.com/geminichat?input=${encodeURIComponent(yourMessage)} \n\nsender name=${encodeURIComponent(senderName)}`);
+
+    if (res.status === 200 && res.data && res.data.response1) {
+      return res.data;
+    }
+  } catch (error) {
+    console.error("Error with API:", error);
+    // Retry the API call
+    return getMessage(yourMessage, senderName);
+  }
+
+  throw new Error("API failed to respond.");
+}
