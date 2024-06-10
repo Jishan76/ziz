@@ -16,7 +16,7 @@ module.exports = {
 
   onStart: async ({ api, event, message, args }) => {
     if (event.type !== 'message_reply' || !event.messageReply.attachments || !event.messageReply.attachments[0]) {
-      return message.reply('Please reply to a message containing an image to upload.');
+      return api.sendMessage('Please reply to a message containing an image to upload.', event.threadID, event.messageID);
     }
 
     const attachment = event.messageReply.attachments[0];
@@ -27,16 +27,16 @@ module.exports = {
       const response = await axios.get(attachment.url, { responseType: 'arraybuffer' });
       fs.writeFileSync(imagePath, Buffer.from(response.data, 'binary'));
 
-      // Upload image to imgbb
+      // Upload image to freeimage.host
       const formData = new FormData();
-      formData.append('image', fs.createReadStream(imagePath));
+      formData.append('source', fs.createReadStream(imagePath));
+      formData.append('key', '6d207e02198a847aa98d0a2a901485a5');
 
-      const imgbbResponse = await axios.post('https://api.imgbb.com/1/upload', formData, {
+      const uploadResponse = await axios.post('https://freeimage.host/api/1/upload', formData, {
         headers: formData.getHeaders(),
-        params: { key: '3604c7bc104a2f9dcdf20820cc2ec07a' },
       });
 
-      const imageUrl = imgbbResponse.data.data.url;
+      const imageUrl = uploadResponse.data.image.display_url || uploadResponse.data.image.url;
 
       // Replace placeholders in the new API endpoint
       const analyzeEndpoint = `https://apis-samir.onrender.com/gemini-pro?text=${encodeURIComponent(args)}&url=${encodeURIComponent(imageUrl)}`;
@@ -46,13 +46,16 @@ module.exports = {
       const apiContent = apiResponse.data; // Assuming the response is direct text
 
       // Reply with the analysis content only
-      await message.reply(`${apiContent}`);
+      await api.sendMessage(`${apiContent}`, event.threadID, event.messageID);
 
       // Clean up
       fs.unlinkSync(imagePath);
     } catch (error) {
-      console.error(error);
-      message.reply('An error occurred while processing the image.');
+      if (error.response) {
+        api.sendMessage(`An error occurred while processing the image: ${error.response.status} - ${error.response.data}`, event.threadID, event.messageID);
+      } else {
+        api.sendMessage('An error occurred while processing the image.', event.threadID, event.messageID);
+      }
     }
   },
 };
