@@ -1,4 +1,4 @@
-const axios = require('axios');
+ const axios = require('axios');
 
 module.exports = {
   config: {
@@ -9,20 +9,14 @@ module.exports = {
     role: 0,
     category: 'Sports',
     description: 'Fetch and display live cricket scores',
-    usage: '-cricketscore <match>',
-    example: '-cricketscore bd vs sa',
+    usage: '-cricket',
+    example: '-cricketscore',
   },
 
   onStart: async function ({ args, message, event, api }) {
-    const searchQuery = args.join(' ');
-
-    if (!searchQuery) {
-      return message.reply('Usage: -cricket <match>');
-    }
-
     try {
       // Fetch cricket match data
-      const apiUrl = `https://aminulzisan.com/cricket?cricket?q=${encodeURIComponent(searchQuery)}`;
+      const apiUrl = `https://aminulzisan.com/cricket?cricket?q=cricket live match`;
       const res = await axios.get(apiUrl);
       const data = res.data;
 
@@ -32,7 +26,7 @@ module.exports = {
 
       // Format the message
       const matchInfo = `
-        Match: ${data.stageDetails || 'N/A'}
+        Current Live: ${data.stageDetails || 'N/A'}
         ${data.team1.name} vs ${data.team2.name}
 
         ${data.team1.name}: ${data.team1.score} ${data.team1.overs}
