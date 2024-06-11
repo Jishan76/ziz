@@ -64,7 +64,7 @@ module.exports = {
 						multiple = true;
 
 					const threadInfo = await api.getThreadInfo(threadID);
-					let totalMembers = threadInfo.userInfo.length;
+					let totalMembers = threadInfo.participantIDs.length;
 
 					for (const user of dataAddedParticipants) {
 						if (dataBanned.some((item) => item.id == user.userFbId))
