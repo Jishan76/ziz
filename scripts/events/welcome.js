@@ -1,4 +1,4 @@
- const { getTime, drive } = global.utils;
+const { getTime, drive } = global.utils;
 if (!global.temp.welcomeEvent)
 	global.temp.welcomeEvent = {};
 
@@ -26,7 +26,7 @@ module.exports = {
 			session2: "noon",
 			session3: "afternoon",
 			session4: "evening",
-			welcomeMessage: "Thank you for inviting me to the group!\nBot prefix: %1\nTo view the list of commands, please enter: %1help",
+			welcomeMessage: `Hello {userName}.\nWelcome {multiple} to the chat group: {boxName}.\nYou are the {userPosition}th member(s).\nHave a nice {session} 😊`,
 			multiple1: "you",
 			multiple2: "you guys",
 			defaultWelcomeMessage: `Hello {userName}.\nWelcome {multiple} to the chat group: {boxName}.\nYou are the {userPosition}th member.\nHave a nice {session} 😊`
