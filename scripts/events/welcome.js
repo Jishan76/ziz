@@ -56,8 +56,7 @@ module.exports = {
 					const dataBanned = threadData.data.banned_ban || [];
 					const threadName = threadData.threadName;
 					const userName = [],
-						mentions = [],
-						userPositions = [];
+						mentions = [];
 					let multiple = false;
 
 					if (dataAddedParticipants.length > 1)
@@ -65,6 +64,10 @@ module.exports = {
 
 					const threadInfo = await api.getThreadInfo(threadID);
 					let totalMembers = threadInfo.participantIDs.length;
+
+					const userPositions = Array.from({ length: dataAddedParticipants.length }, (_, index) =>
+						formatOrdinal(totalMembers + index + 1)
+					);
 
 					for (const user of dataAddedParticipants) {
 						if (dataBanned.some((item) => item.id == user.userFbId))
@@ -74,8 +77,6 @@ module.exports = {
 							tag: user.fullName,
 							id: user.userFbId
 						});
-						userPositions.push(formatOrdinal(totalMembers + 1));
-						totalMembers++;
 					}
 
 					if (userName.length == 0) return;
