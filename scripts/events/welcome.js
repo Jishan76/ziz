@@ -27,7 +27,7 @@ module.exports = {
 		if (event.logMessageType == "log:subscribe") {
 			return async function () {
 				const hours = getTime("HH");
-				const { threadID } = event;
+				const { threadID, participantIDs } = event;
 				const { nickNameBot } = global.GoatBot.config;
 				const prefix = global.utils.getPrefix(threadID);
 				const dataAddedParticipants = event.logMessageData.addedParticipants;
@@ -56,32 +56,25 @@ module.exports = {
 					const dataBanned = threadData.data.banned_ban || [];
 					const threadName = threadData.threadName;
 					const userName = [],
-						mentions = [];
+						mentions = [],
+						userPositions = [];
 					let multiple = false;
 
 					if (dataAddedParticipants.length > 1)
 						multiple = true;
 
-					const threadInfo = await api.getThreadInfo(threadID);
-					let totalMembers = threadInfo.participantIDs.length;
-
-					const existingUserIDs = threadInfo.participantIDs;
-
-					const newUserPositions = [];
-					let positionCount = 1;
+					let totalMembers = participantIDs.length;
 
 					for (const user of dataAddedParticipants) {
 						if (dataBanned.some((item) => item.id == user.userFbId))
 							continue;
-						if (!existingUserIDs.includes(user.userFbId)) {
-							newUserPositions.push(formatOrdinal(totalMembers + positionCount));
-							positionCount++;
-						}
 						userName.push(user.fullName);
 						mentions.push({
 							tag: user.fullName,
 							id: user.userFbId
 						});
+						userPositions.push(totalMembers + 1);
+						totalMembers++;
 					}
 
 					if (userName.length == 0) return;
@@ -98,7 +91,7 @@ module.exports = {
 							hours <= 10 ? getLang("session1") :
 							hours <= 12 ? getLang("session2") :
 							hours <= 18 ? getLang("session3") : getLang("session4"))
-						.replace(/\{userPositions\}/g, newUserPositions.join(", "));
+						.replace(/\{userPositions\}/g, userPositions.join(", "));
 
 					form.body = welcomeMessage;
 
@@ -119,9 +112,3 @@ module.exports = {
 		}
 	}
 };
-
-function formatOrdinal(number) {
-	const suffixes = ["th", "st", "nd", "rd"];
-	const v = number % 100;
-	return number + (suffixes[(v - 20) % 10] || suffixes[v] || suffixes[0]);
-}
