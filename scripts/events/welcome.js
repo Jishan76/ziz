@@ -26,7 +26,7 @@ module.exports = {
 			session2: "noon",
 			session3: "afternoon",
 			session4: "evening",
-			welcomeMessage: `Hello {userName}.\nWelcome {multiple} to the chat group: {boxName}.\nYou are the {userPosition}th member(s).\nHave a nice {session} 😊`,
+			welcomeMessage: `Hello {userName}.\nWelcome {multiple} to the chat group: {boxName}.\nYou are the {userPosition}th member.\nHave a nice {session} 😊`,
 			multiple1: "you",
 			multiple2: "you guys",
 			defaultWelcomeMessage: `Hello {userName}.\nWelcome {multiple} to the chat group: {boxName}.\nYou are the {userPosition}th member.\nHave a nice {session} 😊`
@@ -118,7 +118,7 @@ module.exports = {
 						)
 						.replace(
 							/\{userPosition\}/g,
-							totalMembers
+							multiple ? getMultiplePositions(totalMembers, dataAddedParticipants) : getUserPosition(totalMembers)
 						);
 
 					form.body = welcomeMessage;
@@ -139,3 +139,16 @@ module.exports = {
 			};
 	}
 };
+
+function getUserPosition(totalMembers) {
+    return totalMembers;
+}
+
+function getMultiplePositions(totalMembers, dataAddedParticipants) {
+    const newMembersCount = dataAddedParticipants.length;
+    const positions = [];
+    for (let i = totalMembers - newMembersCount + 1; i <= totalMembers; i++) {
+        positions.push(i);
+    }
+    return positions.join(", ");
+}
