@@ -74,7 +74,7 @@ module.exports = {
 							tag: user.fullName,
 							id: user.userFbId
 						});
-						userPositions.push(totalMembers + 1);
+						userPositions.push(formatOrdinal(totalMembers + 1));
 						totalMembers++;
 					}
 
@@ -113,3 +113,9 @@ module.exports = {
 		}
 	}
 };
+
+function formatOrdinal(number) {
+	const suffixes = ["th", "st", "nd", "rd"];
+	const v = number % 100;
+	return number + (suffixes[(v - 20) % 10] || suffixes[v] || suffixes[0]);
+}
