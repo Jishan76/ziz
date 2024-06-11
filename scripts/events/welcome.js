@@ -19,7 +19,7 @@ module.exports = {
 			welcomeMessage: "Thank you for inviting me to the group!\nBot prefix: %1\nTo view the list of commands, please enter: %1help",
 			multiple1: "you",
 			multiple2: "you guys",
-			defaultWelcomeMessage: `Hello {userName}.\nWelcome {multiple} to the chat group: {boxName}.\nYou are the {userPosition}th member.\nHave a nice {session} 😊`
+			defaultWelcomeMessage: `Hello {userName}.\nWelcome {multiple} to the chat group: {boxName}.\nYou are the {userPositions} member(s).\nHave a nice {session} 😊`
 		}
 	},
 
@@ -56,11 +56,15 @@ module.exports = {
 					const dataBanned = threadData.data.banned_ban || [];
 					const threadName = threadData.threadName;
 					const userName = [],
-						mentions = [];
+						mentions = [],
+						userPositions = [];
 					let multiple = false;
 
 					if (dataAddedParticipants.length > 1)
 						multiple = true;
+
+					const threadInfo = await api.getThreadInfo(threadID);
+					let totalMembers = threadInfo.userInfo.length;
 
 					for (const user of dataAddedParticipants) {
 						if (dataBanned.some((item) => item.id == user.userFbId))
@@ -70,16 +74,16 @@ module.exports = {
 							tag: user.fullName,
 							id: user.userFbId
 						});
+						userPositions.push(totalMembers + 1);
+						totalMembers++;
 					}
-					
-					const threadInfo = await api.getThreadInfo(threadID);
-					const totalMembers = threadInfo.userInfo.length;
 
 					if (userName.length == 0) return;
 					let { welcomeMessage = getLang("defaultWelcomeMessage") } = threadData.data;
 					const form = {
 						mentions: welcomeMessage.match(/\{userNameTag\}/g) ? mentions : null
 					};
+
 					welcomeMessage = welcomeMessage
 						.replace(/\{userName\}|\{userNameTag\}/g, userName.join(", "))
 						.replace(/\{boxName\}|\{threadName\}/g, threadName)
@@ -88,7 +92,7 @@ module.exports = {
 							hours <= 10 ? getLang("session1") :
 							hours <= 12 ? getLang("session2") :
 							hours <= 18 ? getLang("session3") : getLang("session4"))
-						.replace(/\{userPosition\}/g, totalMembers);
+						.replace(/\{userPositions\}/g, userPositions.join(", "));
 
 					form.body = welcomeMessage;
 
