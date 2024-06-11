@@ -6,7 +6,7 @@ module.exports = {
  name: "pairv3",
  countDown: 10,
  role: 0,
- author: "unknown",
+ author: "JISHAN ~ Template Credit to The Unknown Owner",
  shortDescription: {
  en: "Discover your compatibility with someone.",
  },
