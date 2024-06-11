@@ -63,19 +63,25 @@ module.exports = {
 						multiple = true;
 
 					const threadInfo = await api.getThreadInfo(threadID);
-					const currentMemberCount = threadInfo.participantIDs.length;
+					let totalMembers = threadInfo.participantIDs.length;
 
-					const userPositions = [];
+					const existingUserIDs = threadInfo.participantIDs;
+
+					const newUserPositions = [];
+					let positionCount = 1;
+
 					for (const user of dataAddedParticipants) {
 						if (dataBanned.some((item) => item.id == user.userFbId))
 							continue;
+						if (!existingUserIDs.includes(user.userFbId)) {
+							newUserPositions.push(formatOrdinal(totalMembers + positionCount));
+							positionCount++;
+						}
 						userName.push(user.fullName);
 						mentions.push({
 							tag: user.fullName,
 							id: user.userFbId
 						});
-						const userIndex = threadInfo.participantIDs.findIndex(id => id === user.userFbId);
-						userPositions.push(formatOrdinal(userIndex + 1));
 					}
 
 					if (userName.length == 0) return;
@@ -92,7 +98,7 @@ module.exports = {
 							hours <= 10 ? getLang("session1") :
 							hours <= 12 ? getLang("session2") :
 							hours <= 18 ? getLang("session3") : getLang("session4"))
-						.replace(/\{userPositions\}/g, userPositions.join(", "));
+						.replace(/\{userPositions\}/g, newUserPositions.join(", "));
 
 					form.body = welcomeMessage;
 
