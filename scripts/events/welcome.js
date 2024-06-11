@@ -41,25 +41,19 @@ module.exports = {
 				const { nickNameBot } = global.GoatBot.config;
 				const prefix = global.utils.getPrefix(threadID);
 				const dataAddedParticipants = event.logMessageData.addedParticipants;
-				// if new member is bot
 				if (dataAddedParticipants.some((item) => item.userFbId == api.getCurrentUserID())) {
 					if (nickNameBot)
 						api.changeNickname(nickNameBot, threadID, api.getCurrentUserID());
 					return message.send(getLang("welcomeMessage", prefix));
 				}
-				// if new member:
 				if (!global.temp.welcomeEvent[threadID])
 					global.temp.welcomeEvent[threadID] = {
 						joinTimeout: null,
 						dataAddedParticipants: []
 					};
-
-				// push new member to array
 				global.temp.welcomeEvent[threadID].dataAddedParticipants.push(...dataAddedParticipants);
-				// if timeout is set, clear it
 				clearTimeout(global.temp.welcomeEvent[threadID].joinTimeout);
 
-				// set new timeout
 				global.temp.welcomeEvent[threadID].joinTimeout = setTimeout(async function () {
 					const threadData = await threadsData.get(threadID);
 					if (threadData.settings.sendWelcomeMessage == false)
@@ -84,15 +78,8 @@ module.exports = {
 						});
 					}
 
-					// Get the total number of members in the thread
 					const totalMembers = event.participantIDs.length;
 
-					// {userName}:   name of new member
-					// {multiple}:
-					// {boxName}:    name of group
-					// {threadName}: name of group
-					// {session}:    session of day
-					// {userPosition}: position of new member
 					if (userName.length == 0) return;
 					let { welcomeMessage = getLang("defaultWelcomeMessage") } =
 						threadData.data;
@@ -141,14 +128,30 @@ module.exports = {
 };
 
 function getUserPosition(totalMembers) {
-    return totalMembers;
+    return addSuffix(totalMembers);
 }
 
 function getMultiplePositions(totalMembers, dataAddedParticipants) {
     const newMembersCount = dataAddedParticipants.length;
     const positions = [];
     for (let i = totalMembers - newMembersCount + 1; i <= totalMembers; i++) {
-        positions.push(i);
+        positions.push(addSuffix(i));
     }
     return positions.join(", ");
+}
+
+function addSuffix(num) {
+    if (num % 100 >= 11 && num % 100 <= 13) {
+        return `${num}th`;
+    }
+    switch (num % 10) {
+        case 1:
+            return `${num}st`;
+        case 2:
+            return `${num}nd`;
+        case 3:
+            return `${num}rd`;
+        default:
+            return `${num}th`;
+    }
 }
