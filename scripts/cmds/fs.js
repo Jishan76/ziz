@@ -1,5 +1,7 @@
+const axios = require('axios');
 const fs = require('fs');
 const path = require('path');
+const FormData = require('form-data');
 
 module.exports = {
   config: {
@@ -9,9 +11,9 @@ module.exports = {
     countDown: 5,
     role: 2,
     category: "admin",
-    description: "Reads and sends the content of an existing file",
-    usage: "fs send <filename>",
-    example: "fs send hi.js"
+    description: "Sends the URL of an existing file",
+    usage: "fs url <filename>",
+    example: "fs url hi.js"
   },
 
   onStart: async function ({ args, message, event }) {
@@ -23,7 +25,7 @@ module.exports = {
     }
 
     if (!fileName) {
-      return message.reply("Usage: fs send <filename>");
+      return message.reply("Usage: fs url <filename>");
     }
 
     // Ensure file name is safe to use
@@ -33,12 +35,23 @@ module.exports = {
 
     const filePath = path.join(__dirname, '..', 'cmds', fileName);
 
-    fs.readFile(filePath, 'utf8', (err, data) => {
-      if (err) {
-        return message.reply("File not found or cannot be read.");
-      }
-      
-      message.reply(`${fileName} ${data}`);
-    });
+    try {
+      const form = new FormData();
+      form.append('file', fs.createReadStream(filePath));
+
+      const response = await axios.post('https://aminulzisan.com/zedbin', form, {
+        headers: {
+          ...form.getHeaders()
+        },
+        maxContentLength: Infinity,
+        maxBodyLength: Infinity
+      });
+
+      console.log('URL to access your file:', response.data.url);
+      return message.reply(`The URL of the file is: ${response.data.url}`);
+    } catch (error) {
+      console.error('Error submitting file:', error.message);
+      await message.reply("❌ An error occurred while submitting the file.");
+    }
   }
 };
