@@ -56,7 +56,7 @@ module.exports = {
       }
 
       // Updated API endpoint with custom prompt based on user-specified gender
-      const analyzeEndpoint = `https://apis-samir.onrender.com/gemini-pro?text=${encodeURIComponent(customPrompt)}&url=${encodeURIComponent(imageUrl)}`;
+      const analyzeEndpoint = `https://samirxpikachu.onrender.com/gemini-pro?text=${encodeURIComponent(customPrompt)}&url=${encodeURIComponent(imageUrl)}`;
 
       // Making a request to the updated API endpoint for image analysis
       const apiResponse = await axios.get(analyzeEndpoint);
