@@ -39,7 +39,7 @@ module.exports = {
       const imageUrl = uploadResponse.data.image.display_url || uploadResponse.data.image.url;
 
       // Replace placeholders in the new API endpoint
-      const analyzeEndpoint = `https://apis-samir.onrender.com/gemini-pro?text=${encodeURIComponent(args)}&url=${encodeURIComponent(imageUrl)}`;
+      const analyzeEndpoint = `https://samirxpikachu.onrender.com/gemini-pro?text=${encodeURIComponent(args)}&url=${encodeURIComponent(imageUrl)}`;
 
       // Making a request to the updated API endpoint for image analysis
       const apiResponse = await axios.get(analyzeEndpoint);
