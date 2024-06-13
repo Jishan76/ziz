@@ -55,7 +55,7 @@
 			"totp-generator": "^0.0.13",
 	
 		"sqlite3": "^5.0.5",
-		"tinyurl": "^1.1.7",
+	
 		"websocket-stream": "^5.5.2",
 		"yt-get": "^1.1.2"
 	},
