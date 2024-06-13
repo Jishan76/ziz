@@ -30,6 +30,7 @@
 		"fs": "^0.0.1-security",
 		"fs-extra": "^11.1.0",
 		"googleapis": "^100.0.0",
+		"google-play-scraper": "^10.0.0",
 		"gradient-string": "^2.0.2",
 		"graphql-query-to-json": "^2.0.1",
 		"https": "^1.0.0",
