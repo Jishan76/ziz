@@ -2,7 +2,7 @@
 
 module.exports = {
     config: {
-        name: "bakiai",
+        name: "benai",
         
         version: "1.0",
         author: "JISHAN",
