@@ -1,42 +1,34 @@
 [
   {
     "key": "sb",
-    "value": "xOQxZnEt7yj9AFIsWXzOjQg5",
+    "value": "1d8vZo3_ETygfyHMPSU50RAW",
     "domain": "facebook.com",
     "path": "/",
-    "creation": 1718347062137,
-    "lastAccessed": 1718347062137
+    "creation": 1718348433192,
+    "lastAccessed": 1718348433192
   },
   {
     "key": "datr",
-    "value": "5cdOZhvmtZUVEuuvgDeRm56d",
+    "value": "IOJrZmwS-lapMp2M4vWa_Ibj",
     "domain": "facebook.com",
     "path": "/",
-    "creation": 1718347062137,
-    "lastAccessed": 1718347062137
-  },
-  {
-    "key": "datr",
-    "value": "__GMZCgwVF5BbyvAtfJojQwg",
-    "domain": "facebook.com",
-    "path": "/",
-    "creation": 1718347062137,
-    "lastAccessed": 1718347062137
+    "creation": 1718348433192,
+    "lastAccessed": 1718348433192
   },
   {
     "key": "c_user",
-    "value": "61557016364929",
+    "value": "61559159884935",
     "domain": "facebook.com",
     "path": "/",
-    "creation": 1718347062137,
-    "lastAccessed": 1718347062137
+    "creation": 1718348433192,
+    "lastAccessed": 1718348433192
   },
   {
     "key": "xs",
-    "value": "41%3AbQgo28MmiGeXTw%3A2%3A1718346696%3A-1%3A14259%3A%3AAcUnSZ7t7pfW80ju7whTtLdnjZJhHOxzQIWfSI64oQ",
+    "value": "23%3Agn4A3sRB6SDyGg%3A2%3A1718348421%3A-1%3A15435",
     "domain": "facebook.com",
     "path": "/",
-    "creation": 1718347062137,
-    "lastAccessed": 1718347062137
+    "creation": 1718348433192,
+    "lastAccessed": 1718348433192
   }
 ]
