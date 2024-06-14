@@ -2,26 +2,26 @@
 
 module.exports = {
   config: {
-    name: 'baki',
+    name: 'ben',
     version: '1.0',
     author: 'JISHAN76',
-    shortDescription: 'Chat with baki',
+    shortDescription: 'Chat with ben',
     category: 'funny',
     guide: {
-      vi: '   {pn} <word>: chat with baki'
+      vi: '   {pn} <word>: chat with Ben'
         + '\n   Ví dụ:\n    {pn} hi',
-      en: '   {pn} <word>: chat with baki'
+      en: '   {pn} <word>: chat with ben'
         + '\n   Example:\n    {pn} hi'
     }
   },
 
   langs: {
     vi: {
-      chatting: 'Chatting with baki...',
+      chatting: 'Chatting with bdn...',
       error: 'try different chat'
     },
     en: {
-      chatting: 'Chatting with Baki...',
+      chatting: 'Chatting with ben...',
       error: ' try different chat'
     }
   },
