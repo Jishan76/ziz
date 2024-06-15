@@ -8,6 +8,7 @@ const optionsWriteJSON = {
 	EOL: "\n"
 };
 
+
 const messageQueue = global.utils.createQueue(async function (task, callback) {
 	try {
 		const result = await task();
