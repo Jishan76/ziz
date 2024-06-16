@@ -2,15 +2,15 @@
 
 module.exports = {
   config: {
-    name: 'ben',
+    name: 'emi',
     version: '1.0',
     author: 'JISHAN76',
-    shortDescription: 'Chat with ben',
+    shortDescription: 'Chat with emi',
     category: 'funny',
     guide: {
-      vi: '   {pn} <word>: chat with Ben'
+      vi: '   {pn} <word>: chat with emi'
         + '\n   Ví dụ:\n    {pn} hi',
-      en: '   {pn} <word>: chat with ben'
+      en: '   {pn} <word>: chat with emi'
         + '\n   Example:\n    {pn} hi'
     }
   },
