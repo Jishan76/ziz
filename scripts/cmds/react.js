@@ -10,33 +10,26 @@ module.exports = {
         category: "group",
     },
     onStart: async function () {},
-    onChat: async function ({ event, api }) {
+    onChat: async function ({ event, api, message }) {
         // Reactions based on specific keywords
-        if (event.body.toLowerCase().includes("kettle")) {
-            await api.setMessageReaction("💗", event.messageID, event.threadID);
-            await handleMessage(api, event.threadID, "You like kettles! That's cool!");
+        if (event.body.toLowerCase().includes("bruh")) {
+            await api.setMessageReaction("💀", event.messageID);
+            await message.reply("Ya for real!", event.threadID, event.messageID);
         }
 
         if (event.body.toLowerCase().includes("hello")) {
-            await api.setMessageReaction("💗", event.messageID, event.threadID);
-            await handleMessage(api, event.threadID, "Hello there! How are you doing?");
+            await api.setMessageReaction("💗", event.messageID);
+            await message.reply("Hello there! How are you doing?", event.threadID, event.messageID);
         }
 
-        if (event.body.toLowerCase().includes("sad")) {
-            await api.setMessageReaction("😢", event.messageID, event.threadID);
-            await handleMessage(api, event.threadID, "Feeling bored? Let's do something fun!");
+        if (event.body.includes("sad") || event.body.includes("😢") || event.body.includes("😭")) {
+            await api.setMessageReaction("😢", event.messageID);
+            await message.reply("Feeling bad? Let's do something fun!", event.threadID, event.messageID);
         }
 
         if (event.body.includes("😆") || event.body.includes("😂") || event.body.includes("🤣")) {
-            await api.setMessageReaction("😆", event.messageID, event.threadID);
-            await handleMessage(api, event.threadID, "You're funny!");
+            await api.setMessageReaction("😆", event.messageID);
+            await message.reply("You're funny!", event.threadID, event.messageID);
         }
     },
 };
-
-async function handleMessage(api, threadID, message) {
-    await api.sendMessage({
-        body: message,
-        threadID: threadID,
-    });
-}
