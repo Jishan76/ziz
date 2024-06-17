@@ -5,7 +5,7 @@ module.exports = {
 	config: {
 		name: "ttt",
 		version: "1.1",
-		author: "NIB + JISHAN",
+		author: "NIB",
 		countDown: 5,
 		role: 0,
 		shortDescription: {
@@ -127,7 +127,7 @@ if(["4", "5", "6"].includes(event.body)){
 global.game[event.threadID].board = global.game[event.threadID].board.replaceAt("🔲", global.game[event.threadID].bidd, input2-2)
 global.game[event.threadID].board2 = global.game[event.threadID].board2.replace(event.body, global.game[event.threadID].bidd)
   
-api.editMessage(global.game[event.threadID].board, (err, infos) => {global.game[event.threadID].bid = infos.messageID
+message.send(global.game[event.threadID].board, (err, infos) => {global.game[event.threadID].bid = infos.messageID
             global.fff.push(infos.messageID)}
             )
   //ttrns.pus
@@ -183,6 +183,7 @@ let winncomb2 =
 let cbid = {"❌":"❎", "⭕":" 🚫"}
   
  if(winncomb.includes(true)) {
+message.unsend(event.messageReply.messageID)
 
 let winl = winncomb2[winncomb.indexOf(true)]
 
@@ -209,7 +210,7 @@ global.game[event.threadID].board = global.game[event.threadID].board.replaceAt(
   
 })
 
-api.editMessage(global.game[event.threadID].board)
+message.send(global.game[event.threadID].board)
 
 
 
