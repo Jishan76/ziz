@@ -183,7 +183,6 @@ let winncomb2 =
 let cbid = {"❌":"❎", "⭕":" 🚫"}
   
  if(winncomb.includes(true)) {
-message.unsend(event.messageReply.messageID)
 
 let winl = winncomb2[winncomb.indexOf(true)]
 
