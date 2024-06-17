@@ -1,6 +1,7 @@
 global.fff = [];
 global.fff = [];
 
+
 module.exports = {
 	config: {
 		name: "ttt",
