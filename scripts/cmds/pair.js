@@ -18,7 +18,7 @@ module.exports = {
     }
   },
 
-  onStart: async function ({ api, usersData, args, event }) {
+  onStart: async function ({ api, usersData, args, message, event }) {
     const senderID = event.senderID;
     const threadID = event.threadID;
 
@@ -75,8 +75,8 @@ module.exports = {
     const attachment3 = fs.createReadStream(randomUserAvatarPath);
         const randomNumber = Math.floor(Math.random() * 100) + 1; // Generate random number between 1 and 100
 
-    const message = {
-      body: `🎉Congratulations to you\n💌Wish you 69 hundred years of happiness\n 💗 Your Love ratio: ${randomNumber}%\n${senderName} 💓${randomUserName}\n`,
+    const reply = {
+      body: `🎉Congratulations to you 💗 \n\nYour Love ratio: ${randomNumber}%\n${senderName} 💓${randomUserName}\n`,
       attachment: [attachment2, attachment1, attachment3],
       mentions: [
         { tag: senderName, id: senderID },
@@ -84,7 +84,7 @@ module.exports = {
       ]
     };
 
-    api.sendMessage(message, threadID, (error, messageInfo) => {
+    message.reply(reply, threadID, (error, messageInfo) => {
       if (error) {
         console.error("Failed to send the profile pictures and GIF:", error);
       } else {
