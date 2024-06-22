@@ -27,7 +27,7 @@ module.exports = {
     }
 
     // Define the slot symbols
-    const symbols = ["1️⃣", "2️⃣", "3️⃣", "4️⃣","5️⃣"];
+    const symbols = ["1️⃣", "2️⃣", "3️⃣", "4️⃣","5️⃣","6️⃣"];
     
     // Generate random slot results
     const reel1 = symbols[Math.floor(Math.random() * symbols.length)];
