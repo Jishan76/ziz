@@ -5,10 +5,10 @@ module.exports = {
     config: {
         name: "join",
 aliases: ["teleport"],
-        version: "1.4",
+        version: "1.0",
         author: "JISHAN",
         countDown: 5,
-        role: 1,
+        role: 0,
         shortDescription: "Join a specified box chat",
         longDescription: "Allows the sender to join a specified box chat by providing the thread ID or name",
         category: "box chat",
