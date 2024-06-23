@@ -1,12 +1,12 @@
 module.exports = {
   config: {
-    name: 'acceptall',
+    name: 'acceptmsg',
     version: '1.0',
     description: 'Welcome command for message requests',
     category: 'admin',
     usages: [],
     cooldowns: 0,
-    role: 2,
+    role: 1,
     runWithoutPrefix: true,
   },
 
@@ -28,7 +28,7 @@ module.exports = {
 
       let welcomeSent = false;
       pendingRequests.forEach(thread => {
-        api.shareContact("Thank You For Messaging me! Now you can use the bot", botUID, thread.threadID, (err, data) => {
+        api.shareContact("Hello I'm Emi BOT. Thank You For Messaging me!", botUID, thread.threadID, (err, data) => {
           if (err) console.log(err);
           console.log('Contact shared with thread:', thread.threadID);
         });
