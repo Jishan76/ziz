@@ -1,4 +1,5 @@
- module.exports = {
+
+module.exports = {
   config: {
     name: "addbalance",
     aliases: ["addbal"],
