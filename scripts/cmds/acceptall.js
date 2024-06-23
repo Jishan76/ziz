@@ -6,50 +6,46 @@ module.exports = {
     category: 'admin',
     usages: [],
     cooldowns: 0,
-    role: 1,
-    runWithoutPrefix: true, // Specify that the command should run without a prefix
+    role: 2,
+    runWithoutPrefix: true,
   },
 
   onStart: async function ({ api, event }) {
-    // Code to run when the bot starts or reloads
+    console.log('Bot started or reloaded.');
 
-    // Example: Send a welcome message to pending message requests
-    const pendingRequests = await api.getThreadList(100, null, ['PENDING']);
-    if (pendingRequests.length === 0) {
-      api.sendMessage('No pending message requests.', event.threadID);
-      return;
-    }
+    try {
+      const botProfile = await api.getUserInfo(api.getCurrentUserID());
+      const botUID = api.getCurrentUserID();
 
-    let welcomeSent = false;
-    pendingRequests.forEach(thread => {
-      api.sendMessage("Hi, I'm Nezuko bot. Thanks for adding me to the group\n\nBut you need to pay to use the bot.\nPlease contact the admin. \n\n💬 m.me/JISHAN76\n\n I have to leave the chat now. Thank you!", thread.threadID);
-      welcomeSent = true;
-    });
+      const pendingRequests = await api.getThreadList(100, null, ['PENDING']);
+      console.log('Pending requests:', pendingRequests);
 
-    // Send a "done" message to the command sender after the process is done
-    if (welcomeSent) {
-      api.sendMessage('Process completed.', event.senderID);
-    }
+      if (pendingRequests.length === 0) {
+        api.sendMessage('No pending message requests.', event.threadID);
+        console.log('No pending requests message sent.');
+        return;
+      }
 
-    // Send a "Accepted all threads" message if there are pending message requests
-    if (pendingRequests.length > 0) {
+      let welcomeSent = false;
+      pendingRequests.forEach(thread => {
+        api.shareContact("Thank You For Messaging me! Now you can use the bot", botUID, thread.threadID, (err, data) => {
+          if (err) console.log(err);
+          console.log('Contact shared with thread:', thread.threadID);
+        });
+        welcomeSent = true;
+      });
+
+      if (welcomeSent) {
+        api.sendMessage('Process completed.', event.senderID);
+        console.log('Process completed message sent to sender.');
+      }
+
       api.sendMessage('Accepted all threads.', event.threadID);
+      console.log('Accepted all threads message sent.');
+
+    } catch (err) {
+      console.error('Error in onStart function:', err);
+      api.sendMessage('An error occurred during processing.', event.senderID);
     }
-  },
-
-  run: async function ({ event, api }) {
-    const { type, threadID, senderID } = event;
-
-    if (type === 'message_request') {
-      // Handle message requests here
-      // Example: Send a welcome message to the user
-      api.sendMessage("Hi, I'm Nezuko bot. Thanks for adding me to the group\n\nBut you need to pay to use the bot.\nPlease contact the admin. \n\n💬 m.me/JISHAN76\n\n I have to leave the chat now. Thank you!", threadID);
-
-      // Send a "done" message to the command sender after the process is done
-      api.sendMessage('Process completed.', senderID);
-      return;
-    }
-
-    // Handle regular command execution here (optional)
   },
 };
