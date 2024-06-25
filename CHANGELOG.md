@@ -1,3 +1,4 @@
+
 ## 📦 Version 1.5.29
 ### ⬆️ What's Changed
 - **.vscode/GoatBot.code-snippets**: remove `shortDescription` and `longDescription`, replace with `description` in scripts
