@@ -30,7 +30,7 @@ module.exports = {
     version: "1.0",
     author: "JISHAN76",
     countDown: 5,
-    role: 1,
+    role: 0,
     shortDescription: "Automatically resend messages and attachments that are deleted",
     longDescription: "This command allows the bot to automatically resend messages and attachments that are deleted in the group.",
     category: "GROUP",
