@@ -1,7 +1,7 @@
 {
   "facebookAccount": {
-    "email": "jishan6270@hotmail.com",
-    "password": "ZISAN80",
+    "email": "83nhl@somelora.com",
+    "password": "BEN#BAKI",
     "2FASecret": "",
     "i_user": "",
     "proxy": null,
@@ -29,8 +29,8 @@
     ],
     "notes": "if you enable this feature, only the ids in the whiteListIds section can use the bot"
   },
-  "nickNameBot": "B A K I",
-  "prefix": "-",
+  "nickNameBot": "ＥＭＩ",
+  "prefix": "/",
   "database": {
     "type": "mongodb",
     "uriMongodb": "mongodb+srv://aminulzisan76:aminulzisan@cluster0.cxo0nw4.mongodb.net/botDatabase",
@@ -67,7 +67,7 @@
     }
   },
   "autoRestart": {
-    "time": 600000,
+    "time": 1000000,
     "notes": "you can set time is interval with milisecond or cron time, example: 1000, 10000, 60000, 3600000, 86400000, 0 0 * * *,... docs: https://www.npmjs.com/package/node-cron. If you set time is 0 or false or null, the bot will not auto restart"
   },
   "autoUptime": {
